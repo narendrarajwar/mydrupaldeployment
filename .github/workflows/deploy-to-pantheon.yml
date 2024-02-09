@@ -26,7 +26,7 @@ jobs:
               uses: shimataro/ssh-key-action@v2
               with:
                 key: ${{ secrets.PANTHEON_SSH_PRIVATE_KEY }}
-                known_hosts: ''
+                # known_hosts: ''
 
             - name: Install Terminus
               uses: pantheon-systems/terminus-github-actions@main
