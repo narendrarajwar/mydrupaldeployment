@@ -45,7 +45,7 @@ web/sites/simpletest
 
 # Ignore multi-site test environment.
 # simpletest
-web/module/contrib/*
+web/modules/contrib/*
 web/libraries/*
 web/themes/contrib/*
 web/profiles/contrib/*
