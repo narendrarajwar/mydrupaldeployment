@@ -28,6 +28,11 @@ jobs:
                 key: ${{ secrets.PANTHEON_SSH_PRIVATE_KEY }}
                 known_hosts: ${{ secrets.KNOWN_HOSTS }}
 
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                php-version: '8.2'
+
             - name: Install Terminus
               uses: pantheon-systems/terminus-github-actions@main
               with:
