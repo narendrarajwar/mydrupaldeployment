@@ -54,9 +54,6 @@ jobs:
                 git remote add pantheon ssh://${{ env.PANTHEON_GIT_USER }}@${{ env.PANTHEON_GIT_HOSTNAME }}:${{ env.PANTHEON_GIT_PORT }}/~/repository.git;
                 git push pantheon HEAD:master --force
 
-            - name: Composer install
-              run: composer install --no-dev --no-interaction --no-progress
-
             - name: Terminus Drush updates
               run:
                 terminus env:wake ${{ env.PANTHEON_SITE }}.${{ env.PANTHEON_ENV }};
