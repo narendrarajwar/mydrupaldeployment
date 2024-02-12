@@ -1,0 +1,69 @@
+name: Deploy to Pantheon Host
+on:
+    push:
+        branches:
+            - main
+env:
+    PANTHEON_SITE: my-drupal-deployment
+    PANTHEON_SITE_ID: 29bd25b4-74cb-48d0-82b4-a608a142f0a4
+    PANTHEON_ENV: dev
+    PANTHEON_GIT_USER: codeserver.dev.$PANTHEON_SITE_ID
+    PANTHEON_GIT_HOSTNAME: codeserver.dev.$PANTHEON_SITE_ID.drush.in
+    PANTHEON_GIT_PORT: 2222
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                fetch-depth: 0
+
+            - name: Validate composer.json
+              run: composer validate
+
+            - name: Install SSH Key
+              uses: shimataro/ssh-key-action@v2
+              with:
+                key: ${{ secrets.PANTHEON_SSH_PRIVATE_KEY }}
+                known_hosts: ${{ secrets.KNOWN_HOSTS }}
+
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                php-version: '8.2'
+
+            - name: Install Terminus
+              uses: pantheon-systems/terminus-github-actions@main
+              with:
+                pantheon-machine-token: ${{ secrets.TERMINUS_TOKEN }}
+
+            - name: List sites
+              run: terminus site:list
+
+            - name: Cleanup before Pantheon deploy
+              run:
+                echo "Add any additional cleanup/compilation tasks here."
+
+            - name: Add Pantheon Git repository URL as known Host
+              run:
+                ssh-keyscan -t rsa  -p ${{ env.PANTHEON_GIT_PORT }} -H ${{ env.PANTHEON_GIT_HOSTNAME }} >> ~/.ssh/known_hosts
+
+            - name: Deploy via commit to Pantheon Git Repository URL
+              run:
+                git remote add pantheon ssh://${{ env.PANTHEON_GIT_USER }}@${{ env.PANTHEON_GIT_HOSTNAME }}:${{ env.PANTHEON_GIT_PORT }}/~/repository.git;
+                git push pantheon HEAD:master --force
+
+            - name: Composer install
+              run: composer install --no-dev --no-interaction --no-progress
+
+            - name: Terminus Drush updates
+              run:
+                terminus env:wake ${{ env.PANTHEON_SITE }}.${{ env.PANTHEON_ENV }};
+                terminus code-rebuild ${{ env.PANTHEON_SITE }}.${{ env.PANTHEON_ENV }};
+
+                terminus drush ${{ env.PANTHEON_SITE }}.${{ env.PANTHEON_ENV }} -- deploy -vvv ;
+                terminus env:clear-cache ${{ env.PANTHEON_SITE }}.${{ env.PANTHEON_ENV }};
+
+
+
