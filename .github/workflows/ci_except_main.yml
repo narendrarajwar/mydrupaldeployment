@@ -13,8 +13,8 @@ jobs:
     name: Drupal coding standards
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: guix77/phpcs-drupal-action@v3
+      - uses: actions/checkout@v3
+      - uses: guix77/phpcs-drupal-action@v1.0.1
 
   deploy:
     name: Build
