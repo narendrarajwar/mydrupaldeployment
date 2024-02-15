@@ -23,7 +23,7 @@ jobs:
     - uses: php-actions/composer@v6 # or alternative dependency management
       with:
         php_version: ${{ env.php_version }}
-        php_extensions: pdo_mysql,gd
+        php_extensions: pdo_mysql, gd
     - uses: php-actions/phpunit@v3
       with:
         configuration: "../phpunit.xml"
