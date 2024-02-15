@@ -28,8 +28,11 @@ jobs:
       with:
         configuration: "./phpunit.xml"
         memory_limit: "256M"
-        php_extensions: "xdebug"
+        php_extensions: xdebug
         coverage_clover: "coverage/clover.xml"
+      env:
+          XDEBUG_MODE: coverage
+          TEST_NAME: my_deployment_phpunit
   
   deploy:
     name: Build
