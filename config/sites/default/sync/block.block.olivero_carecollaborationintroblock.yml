@@ -1,0 +1,20 @@
+uuid: 5c385bab-514f-407f-bbff-61a7301a4c39
+langcode: en
+status: true
+dependencies:
+  module:
+    - my_module
+  theme:
+    - olivero
+id: olivero_carecollaborationintroblock
+theme: olivero
+region: content
+weight: -6
+provider: null
+plugin: care_collaboration_block
+settings:
+  id: care_collaboration_block
+  label: 'My Module block'
+  label_display: visible
+  provider: my_module
+visibility: {  }

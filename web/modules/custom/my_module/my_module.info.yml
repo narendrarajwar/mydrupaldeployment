@@ -1,0 +1,5 @@
+name: My Module Dashboard
+type: module
+description: Provides Dashboard elements.
+package: custom
+core_version_requirement: ^9 || ^10

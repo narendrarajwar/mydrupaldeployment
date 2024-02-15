@@ -1,0 +1,10 @@
+<div class="intro-text body_text_m">
+	{% for text in data.intro_text.texts %}
+		<p>{{ text }}</p>
+	{% endfor %}
+	<ul>
+		{% for list in data.intro_text.lists %}
+			<li>{{ list }}</li>
+		{% endfor %}
+	</ul>
+</div>
