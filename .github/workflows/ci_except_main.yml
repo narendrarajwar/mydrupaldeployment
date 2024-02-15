@@ -26,7 +26,7 @@ jobs:
         php_extensions: gd
     - uses: php-actions/phpunit@v3
       with:
-        configuration: "../../phpunit.xml"
+        configuration: "./phpunit.xml"
         memory_limit: "256M"
         # php_extensions: "xdebug"
         # coverage_clover: "coverage/clover.xml"
