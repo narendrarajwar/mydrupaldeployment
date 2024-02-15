@@ -30,6 +30,7 @@ jobs:
         memory_limit: "256M"
         php_extensions: xdebug
         coverage_clover: "coverage/clover.xml"
+        args: --migrate-configuration
       env:
           XDEBUG_MODE: coverage
           TEST_NAME: my_deployment_phpunit
