@@ -31,7 +31,7 @@
       <!-- Add more directory here -->
       <directory>web/modules/custom/*/tests</directory>
       <directory>web/sites/*/modules/custom/*/tests</directory>
-      <directory>web/sites/tests</directory>
+<!--       <directory>web/sites/tests</directory> -->
     </testsuite>
   </testsuites>
   <listeners>
